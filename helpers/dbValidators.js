@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Todo = require('../models/todo');
 
 const emailExiste = async(email = '') => {
     //Verificar si el correo existe
@@ -17,7 +18,16 @@ const existeUsuarioPorId = async(id) => {
     }
 }
 
+const existTodoPorId = async(id) => {
+    const existeTodo = await Todo.findById(id);
+
+    if(!existeTodo){
+        throw new Error(`El id no existe ${id}`);
+    }
+}
+
 module.exports = {
     emailExiste,
-    existeUsuarioPorId
+    existeUsuarioPorId,
+    existTodoPorId
 }

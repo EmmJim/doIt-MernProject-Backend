@@ -16,10 +16,6 @@ const getTodo = async(req, res) => {
     try {
         const todo = await Todo.findById(id);
 
-        if(!todo){
-            return res.status(404).json({msg: 'Todo does not exist'});
-        }
-
         res.status(200).json({todo});
     } catch (error) {
         console.log(error);
@@ -46,11 +42,34 @@ const createTodo = async (req, res) => {
 }
 
 const updateTodo = async(req, res) => {
-    
+    const {id} = req.params;
+    const {title, description, status} = req.body;
+
+    try {
+        const todo = await Todo.findByIdAndUpdate(id, {
+            title,
+            description,
+            status
+        }, {new: true});
+
+        res.status(200).json({todo})
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({msg: 'Something went wrong'});
+    }
 }
 
 const deleteTodo = async(req, res) => {
-    
+    const {id} = req.params;
+
+    try {
+        const todo = await Todo.findByIdAndRemove(id);
+
+        res.status(200).json({todo});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({msg: 'Something went wrong'});
+    }
 }
 
 
