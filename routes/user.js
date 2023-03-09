@@ -4,15 +4,16 @@ const router = express.Router();
 const {check} = require('express-validator');
 
 //Controllers
-const { createUser, getUser } = require('../controllers/user');
+const { createUser, getUser, getProfile } = require('../controllers/user');
 
 //Helpers
 const { emailExiste, existeUsuarioPorId } = require('../helpers/dbValidators');
 
 //Middewares
 const { validateFields } = require('../middlewares/validateFields');
+const { validateJWT } = require('../middlewares/validateJWT');
 
-
+router.get('/profile',validateJWT, getProfile);
 router.get('/:id', [
     check('id', 'That does not look like a MongoId').isMongoId(),
     check('id').custom(existeUsuarioPorId),

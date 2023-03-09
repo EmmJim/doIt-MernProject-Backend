@@ -14,8 +14,8 @@ const todoSchema = mongoose.Schema({
         required: true
     },
     status: {
-        type: String,
-        default: null
+        type: Boolean,
+        default: false
     }
 });
 
