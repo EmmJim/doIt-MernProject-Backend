@@ -26,11 +26,13 @@ router.post('/', [
     validateFields
 ], createTodo);
 router.put('/:id', [
+    validateJWT,
     check('id', 'That does not look like a MongoId').isMongoId(),
     check('id').custom(existTodoPorId),
     validateFields
 ], updateTodo);
 router.delete('/:id', [
+    validateJWT,
     check('id', 'That does not look like a MongoId').isMongoId(),
     check('id').custom(existTodoPorId),
     validateFields
