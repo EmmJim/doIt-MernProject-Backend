@@ -7,7 +7,7 @@ class Server {
 
     constructor(){
         this.app = express();
-        this.port = 4000;
+        this.port = process.env.PORT;
 
         this.paths = {
             auth: '/api/auth',
@@ -45,7 +45,8 @@ class Server {
     }
 
     listen() {
-        this.app.listen(this.port, () => {
+        const host = '0.0.0.0';
+        this.app.listen(this.port, host, () => {
             console.log(`Server running on port ${this.port}`)
         })
     }
